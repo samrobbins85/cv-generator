@@ -2,12 +2,14 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import url("https://rsms.me/inter/inter.css");
-html {
-  font-family: "Inter", sans-serif;
-}
-@supports (font-variation-settings: normal) {
-  html {
-    font-family: "Inter var", sans-serif;
+@layer base {
+  @import url("https://rsms.me/inter/inter.css");
+  :root {
+    font-family: "Inter", sans-serif;
+  }
+  @supports (font-variation-settings: normal) {
+    :root {
+      font-family: "Inter var", sans-serif;
+    }
   }
 }
