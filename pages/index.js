@@ -1,62 +1,70 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useUser, useFirstRender, useAllTodos } from '../lib/hooks'
-import { useRouter } from 'next/router'
-import Layout from '../components/layout'
-import Spinner from '../components/spinner'
-import AddTodo from '../components/add-todo'
-import TodoItem from '../components/todo-item'
-import Button from '../components/button'
+import React, { useCallback, useEffect, useState } from "react";
+import { useUser, useFirstRender, useAllTodos } from "../lib/hooks";
+import { useRouter } from "next/router";
+import Layout from "../components/layout";
+import Spinner from "../components/spinner";
+import AddTodo from "../components/add-todo";
+import TodoItem from "../components/todo-item";
+import Button from "../components/button";
 
 export default function Home() {
   const router = useRouter();
-  const [initialized, setInitialized] = useState(false)
-  const isFirstRender = useFirstRender()
+  const [initialized, setInitialized] = useState(false);
+  const [name, setName] = useState("Alan Turing");
+  const isFirstRender = useFirstRender();
 
-  const { user, loading: userLoading } = useUser()
-  const { todos, loading: todosLoading, mutate: mutateTodos } = useAllTodos()
+  const { user, loading: userLoading } = useUser();
+  const { todos, loading: todosLoading, mutate: mutateTodos } = useAllTodos();
 
   useEffect(() => {
     // Flag initialization complete,
     // this will hide the loading state.
     if (user && !userLoading && !todosLoading && !initialized) {
-      setInitialized(true)
+      setInitialized(true);
     }
-  }, [user, userLoading, todosLoading, initialized])
+  }, [user, userLoading, todosLoading, initialized]);
 
   useEffect(() => {
     // If no user is logged in, redirect
     // to the `/login` page automatically.
     if (!(user || userLoading) && !isFirstRender) {
-      router.push('/login')
+      router.push("/login");
     }
-  }, [user, userLoading])
+  }, [user, userLoading]);
 
-  const [filter, setFilter] = useState('all');
-  const filteredTodos = todos.filter(todo => {
+  const [filter, setFilter] = useState("all");
+  const filteredTodos = todos.filter((todo) => {
     switch (filter) {
-      case 'active':
-        return !todo.completed
+      case "active":
+        return !todo.completed;
 
-      case 'completed':
-        return todo.completed
+      case "completed":
+        return todo.completed;
 
-      case 'all':
+      case "all":
       default:
-        return true
+        return true;
     }
-  })
+  });
 
-  const hasCompletedTodos = !!todos.find(todo => todo.completed)
+  const hasCompletedTodos = !!todos.find((todo) => todo.completed);
 
   const clearCompletedTodos = useCallback(() => {
-    mutateTodos(currTodos => currTodos.filter(todo => !todo.completed), false)
-    fetch('/api/todos', { method: 'DELETE' }).then(() => mutateTodos())
-  }, [])
+    mutateTodos(
+      (currTodos) => currTodos.filter((todo) => !todo.completed),
+      false
+    );
+    fetch("/api/todos", { method: "DELETE" }).then(() => mutateTodos());
+  }, []);
+
+  function changeName(event) {}
 
   return (
-    <Layout>
-      {initialized ? <>
-        <AddTodo todos={todos} mutateTodos={mutateTodos} />
+    <>
+      <Layout>
+        {initialized ? (
+          <>
+            {/* <AddTodo todos={todos} mutateTodos={mutateTodos} />
         {filteredTodos.map(todo => <TodoItem mutateTodos={mutateTodos} {...todo} key={todo.id} /> )}
         {!!todos.length && (<div className="actions">
           <div className="filters">
@@ -71,33 +79,43 @@ export default function Home() {
             onClick={clearCompletedTodos}>
               Clear Completed
           </Button>
-        </div>)}
-      </> : <div className="loader">
-        <Spinner />
-      </div>}
+        </div>)} */}
+            <form className="px-8 py-4" onSubmit={changeName}>
+              <label className="block">
+                <span className="text-gray-700">Name</span>
+                <input
+                  className="form-input mt-1 block w-full"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  placeholder="Jane Doe"
+                />
+              </label>
+            </form>
+          </>
+        ) : (
+          <div className="loader">
+            <Spinner />
+          </div>
+        )}
 
-      <style jsx>{`
-        .loader {
-          display: flex;
-          justify-content: center;
-          padding: 3rem;
-        }
+        <style jsx>{`
+          .loader {
+            display: flex;
+            justify-content: center;
+            padding: 3rem;
+          }
+        `}</style>
+      </Layout>
 
-        .actions {
-          display: flex;
-          justify-content: space-between;
-          border-top: solid 1px #eeeeee;
-          padding: 10px;
-        }
-
-        .actions .filters > div:not(:last-child) {
-          margin-right: 10px !important;
-        }
-
-        .filters {
-          display: flex;
-        }
-      `}</style>
-    </Layout>
-  )
+      {initialized && (
+        <>
+          <h2 className="text-center pt-4 text-2xl">Preview</h2>
+          <hr />
+          <div>
+            <h1 className="text-center font-semibold text-4xl">{name}</h1>
+          </div>
+        </>
+      )}
+    </>
+  );
 }
