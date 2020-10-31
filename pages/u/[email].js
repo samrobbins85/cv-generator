@@ -1,43 +1,11 @@
 import { useRouter } from "next/router";
-import useSWR from "swr";
+import Head from "next/head";
 import Error from "next/error";
 import { q, adminClient } from "@/lib/faunadb";
-import user from "pages/api/user";
 
 export default function User(user_data) {
-  console.log(user_data);
   const router = useRouter();
   const { email } = router.query;
-
-  // const jsonFetcher = (selector) => (url) =>
-  //   fetch(url)
-  //     .then((r) => r.json())
-  //     .then((data) => (selector ? get(data, selector, null) : data ?? null));
-
-  // const fetcher = async (url) => {
-  //   const res = await fetch(url);
-  //   // If the status code is not in the range 200-299,
-  //   // we still try to parse and throw it.
-  //   if (!res.ok) {
-  //     const error = new Error("An error occurred while fetching the data.");
-  //     // Attach extra info to the error object.
-  //     error.info = await res.json();
-  //     error.status = res.status;
-  //     throw error;
-  //   }
-  //   return res.json();
-  // };
-
-  // function useUser() {
-  //   const { data, error } = useSWR(`/api/user_details?email=${email}`, fetcher);
-  //   const user = data?.user ?? null;
-  //   return { user, error };
-  // }
-  // const { user, error } = useUser();
-
-  // if (error) return <Error statusCode={error.status} />;
-  // if (!user) return <div>loading...</div>;
-  // var profile = user.data;
 
   if (
     (Object.keys(user_data).length === 0 && user_data.constructor === Object) ||
@@ -50,6 +18,9 @@ export default function User(user_data) {
 
   return (
     <>
+      <Head>
+        <title>CV | {profile.name}</title>
+      </Head>
       <div className="container mx-auto pt-8">
         <h1 className="text-center text-4xl font-semibold">{profile.name}</h1>
         <span className="flex justify-center">
@@ -95,7 +66,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       user_data,
-    }, // will be passed to the page component as props
+    },
     revalidate: 1,
   };
 }
