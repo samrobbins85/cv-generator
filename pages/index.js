@@ -24,6 +24,12 @@ export default function Home() {
     // this will hide the loading state.
     if (user && !userLoading && !todosLoading && !initialized) {
       setInitialized(true);
+      if (user.user.data.name) {
+        setName(user.user.data.name);
+      }
+      if (user.user.data.skills) {
+        setAllSkills(user.user.data.skills);
+      }
     }
   }, [user, userLoading, todosLoading, initialized]);
 
@@ -74,10 +80,10 @@ export default function Home() {
     setInSkill("");
   }
 
-  function saveSkills() {
+  function save() {
     fetch("/api/user_details", {
       method: "POST",
-      body: JSON.stringify({ skills: allSkills }),
+      body: JSON.stringify({ name: name, skills: allSkills }),
     });
   }
 
@@ -87,22 +93,15 @@ export default function Home() {
         {initialized ? (
           <>
             <div className="px-8 py-4">
-              <form onSubmit={changeName}>
-                <label className="block">
-                  <span className="text-gray-700">Name</span>
-                  <input
-                    className="form-input mt-1 block w-full"
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                    placeholder="Jane Doe"
-                  />
-                </label>
+              <label className="block">
+                <span className="text-gray-700">Name</span>
                 <input
-                  className="border border-gray-600 px-4 py-2 rounded"
-                  type="submit"
-                  value="Submit"
+                  className="form-input mt-1 block w-full"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  placeholder="Jane Doe"
                 />
-              </form>
+              </label>
               <h3 className="pt-4 font-semibold text-lg">Skills</h3>
               <div>Skills go here</div>
               <input
@@ -114,10 +113,15 @@ export default function Home() {
                 className="border border-gray-600 px-4 py-2 ml-4"
                 onClick={addSkill}
               >
-                Submit
+                Add
               </button>
               <br />
-              <button onClick={saveSkills}>Save</button>
+              <button
+                className="float-right border border-gray-600 my-2 py-2 px-4 rounded bg-teal-300"
+                onClick={save}
+              >
+                Save
+              </button>
             </div>
           </>
         ) : (
