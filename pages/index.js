@@ -1,12 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useUser, useFirstRender, useAllTodos } from "../lib/hooks";
+import React, { useEffect, useState } from "react";
+import { useUser, useFirstRender } from "../lib/hooks";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Layout from "../components/layout";
 import Spinner from "../components/spinner";
-import AddTodo from "../components/add-todo";
-import TodoItem from "../components/todo-item";
-import Button from "../components/button";
 const arrayMove = require("array-move");
 
 export default function Home() {
@@ -20,12 +16,11 @@ export default function Home() {
   const isFirstRender = useFirstRender();
 
   const { user, loading: userLoading } = useUser();
-  const { todos, loading: todosLoading, mutate: mutateTodos } = useAllTodos();
 
   useEffect(() => {
     // Flag initialization complete,
     // this will hide the loading state.
-    if (user && !userLoading && !todosLoading && !initialized) {
+    if (user && !userLoading && !initialized) {
       setInitialized(true);
       if (user.user.data.name) {
         setName(user.user.data.name);
@@ -37,7 +32,7 @@ export default function Home() {
         setAllExp(user.user.data.experience);
       }
     }
-  }, [user, userLoading, todosLoading, initialized]);
+  }, [user, userLoading, initialized]);
 
   useEffect(() => {
     // If no user is logged in, redirect
@@ -107,6 +102,18 @@ export default function Home() {
     var oldskill = [...allSkills];
     var newskill = arrayMove(oldskill, index, index + amount);
     setAllSkills(newskill);
+  }
+
+  function expPosition(index, amount) {
+    if (index === 0 && amount === -1) {
+      return;
+    }
+    if (index === allExp.length - 1 && amount === 1) {
+      return;
+    }
+    var oldexp = [...allExp];
+    var newexp = arrayMove(oldexp, index, index + amount);
+    setAllExp(newexp);
   }
 
   return (
@@ -227,25 +234,63 @@ export default function Home() {
                     {allExp.map((x, index) => (
                       <div className="grid grid-cols-2 border border-gray-600 px-4 py-2">
                         <span>{x.position}</span>
-                        <button
-                          className="justify-self-end"
-                          onClick={() => removeExp(index)}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            className="h-6 w-6 "
+                        <div className="justify-self-end flex align-bottom">
+                          <button onClick={() => expPosition(index, -1)}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              className={`h-6 w-6 inline-block ${
+                                index === 0 && "text-gray-500"
+                              }`}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 15l7-7 7 7"
+                              />
+                            </svg>
+                          </button>
+                          <button onClick={() => expPosition(index, 1)}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              className={`h-6 w-6 ${
+                                index === allExp.length - 1 && "text-gray-500"
+                              }`}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 9l-7 7-7-7"
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            className="justify-self-end"
+                            onClick={() => removeExp(index)}
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            />
-                          </svg>
-                        </button>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              className="h-6 w-6 inline-block"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                              />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>

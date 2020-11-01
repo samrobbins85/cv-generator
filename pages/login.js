@@ -112,6 +112,15 @@ export default function Login() {
         Note that the idea of this website is to publicly share your CV, so all
         data you enter will be public
       </p>
+      <p className="text-center pt-8">
+        This project is open source, and the repository can be found{" "}
+        <a
+          className="text-blue-700 hover:underline"
+          href="https://github.com/samrobbins85/cv-generator"
+        >
+          here
+        </a>
+      </p>
     </>
   );
 }
