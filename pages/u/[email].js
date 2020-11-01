@@ -43,12 +43,28 @@ export default function User(user_data) {
             {email}
           </a>
         </span>
-        <h2 className="text-xl font-semibold">Skills</h2>
-        <ul className="list-disc pl-8">
-          {profile.skills.map((x) => (
-            <li>{x}</li>
-          ))}
-        </ul>
+        {profile.skills && (
+          <>
+            <h2 className="text-xl font-semibold">Skills</h2>
+            <ul className="list-disc pl-8">
+              {profile.skills.map((x) => (
+                <li>{x}</li>
+              ))}
+            </ul>
+          </>
+        )}
+        {profile.experience && (
+          <>
+            <h2 className="text-xl font-semibold">Experience</h2>
+            {profile.experience.map((x) => (
+              <div className="grid grid-cols-2">
+                <h3 className="font-semibold">{x.position}</h3>
+                <p className="italic justify-self-end ">{x.duration}</p>
+                <p className="col-span-2">{x.description}</p>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </>
   );
