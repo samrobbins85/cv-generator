@@ -108,6 +108,10 @@ export default function Login() {
           {errorMsg && <p className="error text-red-400">{errorMsg}</p>}
         </form>
       </Layout>
+      <p className="text-center pt-10 container mx-auto">
+        Note that the idea of this website is to publicly share your CV, so all
+        data you enter will be public
+      </p>
     </>
   );
 }
