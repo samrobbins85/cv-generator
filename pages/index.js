@@ -16,7 +16,6 @@ export default function Home() {
   const isFirstRender = useFirstRender();
 
   const { user, loading: userLoading } = useUser();
-  console.log(user);
   const { todos, loading: todosLoading, mutate: mutateTodos } = useAllTodos();
 
   useEffect(() => {
@@ -41,36 +40,42 @@ export default function Home() {
     }
   }, [user, userLoading]);
 
-  const [filter, setFilter] = useState("all");
-  const filteredTodos = todos.filter((todo) => {
-    switch (filter) {
-      case "active":
-        return !todo.completed;
+  // const [filter, setFilter] = useState("all");
+  // const filteredTodos = todos.filter((todo) => {
+  //   switch (filter) {
+  //     case "active":
+  //       return !todo.completed;
 
-      case "completed":
-        return todo.completed;
+  //     case "completed":
+  //       return todo.completed;
 
-      case "all":
-      default:
-        return true;
-    }
-  });
+  //     case "all":
+  //     default:
+  //       return true;
+  //   }
+  // });
 
-  const hasCompletedTodos = !!todos.find((todo) => todo.completed);
+  // const hasCompletedTodos = !!todos.find((todo) => todo.completed);
 
-  const clearCompletedTodos = useCallback(() => {
-    mutateTodos(
-      (currTodos) => currTodos.filter((todo) => !todo.completed),
-      false
-    );
-    fetch("/api/todos", { method: "DELETE" }).then(() => mutateTodos());
-  }, []);
+  // const clearCompletedTodos = useCallback(() => {
+  //   mutateTodos(
+  //     (currTodos) => currTodos.filter((todo) => !todo.completed),
+  //     false
+  //   );
+  //   fetch("/api/todos", { method: "DELETE" }).then(() => mutateTodos());
+  // }, []);
 
-  function changeName(event) {
-    fetch("/api/user_details", {
-      method: "POST",
-      body: JSON.stringify({ name: name }),
-    });
+  // function changeName(event) {
+  //   fetch("/api/user_details", {
+  //     method: "POST",
+  //     body: JSON.stringify({ name: name }),
+  //   });
+  // }
+
+  function removeSkill(index) {
+    var oldskill = allSkills;
+    const removed = oldskill.splice(index, 1);
+    setAllSkills(oldskill);
   }
 
   function addSkill() {
@@ -103,7 +108,32 @@ export default function Home() {
                 />
               </label>
               <h3 className="pt-4 font-semibold text-lg">Skills</h3>
-              <div>Skills go here</div>
+              <div className="grid gap-2 py-4">
+                {allSkills.map((x, index) => (
+                  <div className="border border-gray-600 py-2 px-4 rounded grid grid-cols-2">
+                    <span>{x}</span>
+                    <button
+                      className="justify-self-end"
+                      onClick={() => removeSkill(index)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="h-6 w-6 "
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                ))}
+              </div>
               <input
                 className="form-input"
                 value={inSkill}
