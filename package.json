@@ -1,5 +1,5 @@
 {
-  "name": "next-magic-faunadb-todomvc",
+  "name": "cv-generator",
   "scripts": {
     "dev": "next",
     "build": "next build",
