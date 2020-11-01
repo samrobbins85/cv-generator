@@ -65,30 +65,49 @@ export default function Login() {
   );
 
   return (
-    <Layout>
-      <form className="p-12" onSubmit={onSubmit}>
-        <h2 className="pb-2 text-2xl font-semibold">Log in</h2>
+    <>
+      <div className="grid grid-cols-2 border-b py-4 px-2">
+        <span className="text-lg font-semibold">CV Generator</span>
+        {user && (
+          <div className="flex gap-4 pr-2 justify-self-end">
+            <span className="text-gray-700">{user.email}</span>
+            <a className="text-center underline" href="/api/logout">
+              Logout
+            </a>
+          </div>
+        )}
+      </div>
+      <div class="text-center text-5xl font-extrabold leading-none tracking-tight pt-12">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
+          CV Generator
+        </span>
+      </div>
 
-        <label htmlFor="email" className="block">
-          Email
-          <span aria-hidden={true} className="text-red-600">
-            *
-          </span>
-        </label>
-        <input
-          className="form-input block my-2 w-full"
-          type="email"
-          name="email"
-          required
-          placeholder="hello@magic.link"
-        />
+      <Layout>
+        <form className="p-12" onSubmit={onSubmit}>
+          <h2 className="pb-2 text-2xl font-semibold">Log in</h2>
 
-        <Button disabled={isLoggingIn} type="submit">
-          Sign Up / Login
-        </Button>
+          <label htmlFor="email" className="block">
+            Email
+            <span aria-hidden={true} className="text-red-600">
+              *
+            </span>
+          </label>
+          <input
+            className="form-input block my-2 w-full"
+            type="email"
+            name="email"
+            required
+            placeholder="hello@magic.link"
+          />
 
-        {errorMsg && <p className="error text-red-400">{errorMsg}</p>}
-      </form>
-    </Layout>
+          <Button disabled={isLoggingIn} type="submit">
+            Sign Up / Login
+          </Button>
+
+          {errorMsg && <p className="error text-red-400">{errorMsg}</p>}
+        </form>
+      </Layout>
+    </>
   );
 }
