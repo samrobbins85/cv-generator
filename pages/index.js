@@ -121,8 +121,8 @@ export default function Home() {
       <Head>
         <title>CV Generator</title>
       </Head>
-      <div className="grid grid-cols-2 border-b py-4 px-2">
-        <span className="text-lg font-semibold">CV Generator</span>
+      <div className="grid grid-cols-2 border-b py-4 h-16">
+        <span className="text-lg font-semibold pl-2">CV Generator</span>
         {user && (
           <div className="flex gap-4 pr-2 justify-self-end">
             <span className="text-gray-700">{user.email}</span>
@@ -133,10 +133,10 @@ export default function Home() {
         )}
       </div>
       <div className="grid md:grid-cols-2">
-        <div>
+        <div className="md:border-r border-gray-600 h-tweak">
           <h2 className="text-center pt-4 text-2xl">Edit</h2>
-          <hr />
-          <div className="border-r border-gray-600">
+          <hr className="mx-8" />
+          <div>
             {initialized ? (
               <>
                 <div className="px-8 py-4">
@@ -232,7 +232,7 @@ export default function Home() {
                   </h3>
                   <div className="grid gap-y-4 py-4">
                     {allExp.map((x, index) => (
-                      <div className="grid grid-cols-2 border border-gray-600 px-4 py-2">
+                      <div className="grid grid-cols-2 border border-gray-600 px-4 py-2 rounded">
                         <span>{x.position}</span>
                         <div className="justify-self-end flex align-bottom">
                           <button onClick={() => expPosition(index, -1)}>
@@ -359,7 +359,7 @@ export default function Home() {
         {initialized && (
           <div>
             <h2 className="text-center pt-4 text-2xl">Preview</h2>
-            <hr />
+            <hr className="mx-8" />
             <div className="max-w-xl mx-auto px-4">
               <h1 className="text-center font-semibold text-4xl">{name}</h1>
               <h2 className="text-xl font-semibold">Skills</h2>
