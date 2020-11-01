@@ -21,7 +21,7 @@ export default function User(user_data) {
       <Head>
         <title>CV | {profile.name}</title>
       </Head>
-      <div className="container mx-auto pt-8">
+      <div className="container mx-auto pt-8 px-4">
         <h1 className="text-center text-4xl font-semibold">{profile.name}</h1>
         <span className="flex justify-center">
           <svg
@@ -57,7 +57,7 @@ export default function User(user_data) {
           <>
             <h2 className="text-xl font-semibold">Experience</h2>
             {profile.experience.map((x) => (
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 py-1">
                 <h3 className="font-semibold">{x.position}</h3>
                 <p className="italic justify-self-end ">{x.duration}</p>
                 <p className="col-span-2">{x.description}</p>
