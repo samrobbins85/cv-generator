@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useUser, useFirstRender, useAllTodos } from "../lib/hooks";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
 import Spinner from "../components/spinner";
@@ -110,6 +111,9 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>CV Generator</title>
+      </Head>
       <div className="grid grid-cols-2 border-b py-4 px-2">
         <span className="text-lg font-semibold">CV Generator</span>
         {user && (

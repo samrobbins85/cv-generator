@@ -7,7 +7,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>Magic</title>
+        <title>CV Generator</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
