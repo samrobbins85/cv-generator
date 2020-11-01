@@ -26,7 +26,7 @@ export default function Home() {
       if (user.user.data.name) {
         setName(user.user.data.name);
       }
-      if (user.user.data.skills) {
+      if (user.user.data.skills && allSkills.length === 0) {
         setAllSkills(user.user.data.skills);
       }
     }
@@ -40,46 +40,15 @@ export default function Home() {
     }
   }, [user, userLoading]);
 
-  // const [filter, setFilter] = useState("all");
-  // const filteredTodos = todos.filter((todo) => {
-  //   switch (filter) {
-  //     case "active":
-  //       return !todo.completed;
-
-  //     case "completed":
-  //       return todo.completed;
-
-  //     case "all":
-  //     default:
-  //       return true;
-  //   }
-  // });
-
-  // const hasCompletedTodos = !!todos.find((todo) => todo.completed);
-
-  // const clearCompletedTodos = useCallback(() => {
-  //   mutateTodos(
-  //     (currTodos) => currTodos.filter((todo) => !todo.completed),
-  //     false
-  //   );
-  //   fetch("/api/todos", { method: "DELETE" }).then(() => mutateTodos());
-  // }, []);
-
-  // function changeName(event) {
-  //   fetch("/api/user_details", {
-  //     method: "POST",
-  //     body: JSON.stringify({ name: name }),
-  //   });
-  // }
-
   function removeSkill(index) {
-    var oldskill = allSkills;
+    var oldskill = [...allSkills];
     const removed = oldskill.splice(index, 1);
     setAllSkills(oldskill);
+    console.log(allSkills);
   }
 
   function addSkill() {
-    var oldskill = allSkills;
+    var oldskill = [...allSkills];
     oldskill.push(inSkill);
     setAllSkills(oldskill);
     setInSkill("");
