@@ -125,7 +125,7 @@ export default function Home() {
         <span className="text-lg font-semibold pl-2">CV Generator</span>
         {user && (
           <div className="flex gap-4 pr-2 justify-self-end">
-            <span className="text-gray-700">{user.email}</span>
+            {/* <span className="text-gray-700">{user.email}</span> */}
             <a className="text-center underline" href="/api/logout">
               Logout
             </a>
