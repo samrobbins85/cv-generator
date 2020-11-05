@@ -66,50 +66,52 @@ export default function Login() {
 
   return (
     <>
-      <div class="text-center text-5xl font-extrabold leading-none tracking-tight pt-12">
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
-          CV Generator
-        </span>
+      <div className="px-4 py-2">
+        <div class="text-center text-5xl font-extrabold leading-none tracking-tight pt-8">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
+            CV Generator
+          </span>
+        </div>
+
+        <Layout>
+          <form className="px-2 py-4 sm:p-12" onSubmit={onSubmit}>
+            <h2 className="pb-2 text-2xl font-semibold">Log in</h2>
+
+            <label htmlFor="email" className="block">
+              Email
+              <span aria-hidden={true} className="text-red-600">
+                *
+              </span>
+            </label>
+            <input
+              className="form-input block my-2 w-full"
+              type="email"
+              name="email"
+              required
+              placeholder="hello@magic.link"
+            />
+
+            <Button disabled={isLoggingIn} type="submit">
+              Sign Up / Login
+            </Button>
+
+            {errorMsg && <p className="error text-red-400">{errorMsg}</p>}
+          </form>
+        </Layout>
+        <p className="text-center pt-10 container mx-auto">
+          Note that the idea of this website is to publicly share your CV, so
+          all data you enter will be public
+        </p>
+        <p className="text-center pt-8">
+          This project is open source, and the repository can be found{" "}
+          <a
+            className="text-blue-700 hover:underline"
+            href="https://github.com/samrobbins85/cv-generator"
+          >
+            here
+          </a>
+        </p>
       </div>
-
-      <Layout>
-        <form className="p-12" onSubmit={onSubmit}>
-          <h2 className="pb-2 text-2xl font-semibold">Log in</h2>
-
-          <label htmlFor="email" className="block">
-            Email
-            <span aria-hidden={true} className="text-red-600">
-              *
-            </span>
-          </label>
-          <input
-            className="form-input block my-2 w-full"
-            type="email"
-            name="email"
-            required
-            placeholder="hello@magic.link"
-          />
-
-          <Button disabled={isLoggingIn} type="submit">
-            Sign Up / Login
-          </Button>
-
-          {errorMsg && <p className="error text-red-400">{errorMsg}</p>}
-        </form>
-      </Layout>
-      <p className="text-center pt-10 container mx-auto">
-        Note that the idea of this website is to publicly share your CV, so all
-        data you enter will be public
-      </p>
-      <p className="text-center pt-8">
-        This project is open source, and the repository can be found{" "}
-        <a
-          className="text-blue-700 hover:underline"
-          href="https://github.com/samrobbins85/cv-generator"
-        >
-          here
-        </a>
-      </p>
     </>
   );
 }
