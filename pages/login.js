@@ -3,7 +3,6 @@ import { useUser, useIsMounted } from "../lib/hooks";
 import { Magic } from "magic-sdk";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
-import Button from "../components/button";
 
 export default function Login() {
   const router = useRouter();
@@ -66,51 +65,58 @@ export default function Login() {
 
   return (
     <>
-      <div className="px-4 py-2">
+      <div className="flex py-2 flex-col px-4">
         <div class="text-center text-5xl font-extrabold leading-none tracking-tight pt-8">
           <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
             CV Generator
           </span>
         </div>
 
-        <Layout>
-          <form className="px-2 py-4 sm:p-12" onSubmit={onSubmit}>
-            <h2 className="pb-2 text-2xl font-semibold">Log in</h2>
+        <div className="py-10">
+          <p className="text-center pt-10 container mx-auto">
+            Note that the idea of this website is to publicly share your CV, so
+            all data you enter will be public
+          </p>
+          <p className="text-center pt-8">
+            This project is open source, and the repository can be found{" "}
+            <a
+              className="text-blue-700 hover:underline"
+              href="https://github.com/samrobbins85/cv-generator"
+            >
+              here
+            </a>
+          </p>
+        </div>
 
-            <label htmlFor="email" className="block">
-              Email
-              <span aria-hidden={true} className="text-red-600">
-                *
-              </span>
-            </label>
-            <input
-              className="form-input block my-2 w-full"
-              type="email"
-              name="email"
-              required
-              placeholder="hello@magic.link"
-            />
+        <div className="py-10 flex-grow">
+          <div>
+            <h2 className="text-center text-3xl font-bold">
+              Sign up or Log In
+            </h2>
+          </div>
+          <Layout>
+            <form className="px-2 py-4 sm:p-12" onSubmit={onSubmit}>
+              <input
+                aria-label="Email address"
+                className="form-input block my-2 w-full"
+                type="email"
+                name="email"
+                required
+                placeholder="Email address"
+              />
+              <div className="flex justify-center">
+                <button
+                  className="w-full rounded py-2 mt-4 bg-blue-600 text-white font-semibold hover:bg-blue-500"
+                  type="submit"
+                >
+                  Sign Up / Login
+                </button>
+              </div>
 
-            <Button disabled={isLoggingIn} type="submit">
-              Sign Up / Login
-            </Button>
-
-            {errorMsg && <p className="error text-red-400">{errorMsg}</p>}
-          </form>
-        </Layout>
-        <p className="text-center pt-10 container mx-auto">
-          Note that the idea of this website is to publicly share your CV, so
-          all data you enter will be public
-        </p>
-        <p className="text-center pt-8">
-          This project is open source, and the repository can be found{" "}
-          <a
-            className="text-blue-700 hover:underline"
-            href="https://github.com/samrobbins85/cv-generator"
-          >
-            here
-          </a>
-        </p>
+              {errorMsg && <p className="error text-red-400">{errorMsg}</p>}
+            </form>
+          </Layout>
+        </div>
       </div>
     </>
   );

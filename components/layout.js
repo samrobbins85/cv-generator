@@ -12,7 +12,7 @@ export default function Layout({ children }) {
       </Head>
 
       <main className="pt-8">
-        <div className="max-w-screen-sm my-0 mx-auto shadow overflow-hidden">
+        <div className="max-w-screen-sm my-0 mx-auto shadow overflow-hidden bg-white border border-gray-300">
           {children}
         </div>
       </main>
