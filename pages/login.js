@@ -66,17 +66,6 @@ export default function Login() {
 
   return (
     <>
-      <div className="grid grid-cols-2 border-b py-4 px-2">
-        <span className="text-lg font-semibold">CV Generator</span>
-        {user && (
-          <div className="flex gap-4 pr-2 justify-self-end">
-            <span className="text-gray-700">{user.email}</span>
-            <a className="text-center underline" href="/api/logout">
-              Logout
-            </a>
-          </div>
-        )}
-      </div>
       <div class="text-center text-5xl font-extrabold leading-none tracking-tight pt-12">
         <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
           CV Generator
