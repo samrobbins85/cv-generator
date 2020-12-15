@@ -17,7 +17,7 @@
     "lodash": "^4.17.20",
     "magic-sdk": "4.0.2",
     "next": "latest",
-    "postcss-import": "^13.0.0",
+    "postcss-import": "^14.0.0",
     "react": "latest",
     "react-dom": "latest",
     "swr": "0.3.8",
