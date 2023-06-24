@@ -15,7 +15,7 @@
     "cookie": "0.4.1",
     "faunadb": "^3.0.1",
     "lodash": "^4.17.21",
-    "magic-sdk": "4.0.2",
+    "magic-sdk": "18.2.0",
     "next": "latest",
     "postcss-import": "^14.0.0",
     "react": "latest",
